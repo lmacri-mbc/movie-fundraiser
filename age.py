@@ -1,4 +1,8 @@
 def check_age(age):
+    '''
+        This checks that the user has entered valid data.
+        Age cannot be less than 12, or older than 114.
+    '''
     if isinstance(age, str) or isinstance(age, float):
         return "Please enter an integer (i.e. a number which doesn't have a decimal)."
     elif age < 12:
@@ -8,5 +12,3 @@ def check_age(age):
 
     return "Thank you"
 
-age = int(input("Please enter your age."))
-print(check_age(age))
