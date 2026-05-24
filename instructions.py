@@ -11,5 +11,3 @@ Once you have either sold all the tickets or entered the exit code (‘xxx’), 
 
 It will also choose one lucky ticket holder who wins the draw (their ticket is free).
     ''')
-
-show_instructions()
