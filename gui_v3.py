@@ -64,10 +64,9 @@ def submit_ticket():
     else:
         all_surcharges.append(CREDIT_SURCHARGE)
 
+    name_entry.delete(0, tk.END)
+    age_entry.delete(0, tk.END)
 
-    
-
-        
 
 root = tk.Tk()
 root.title("Mini-Movie Fundraiser")
