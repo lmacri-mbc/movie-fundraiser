@@ -22,6 +22,7 @@ def print_to_file(all_names, all_ticket_costs, all_surcharges):
     total_profit = 0
     total_surcharge = 0
     total_paid = 0
+    total_collected = 0
 
     today = date.today()
     heading = make_statement(f"Mini Movie Fundraiser Ticket Data ({today})", "=")
@@ -35,6 +36,7 @@ def print_to_file(all_names, all_ticket_costs, all_surcharges):
         profit = 0
         total_surcharge += all_surcharges[i]
         total_paid = all_ticket_costs[i] + all_surcharges[i]
+        total_collected += total_paid
 
         if all_ticket_costs[i] == 10.5:
             profit = 5.5
@@ -47,7 +49,7 @@ def print_to_file(all_names, all_ticket_costs, all_surcharges):
 
         output += f"{all_names[i]:<11} {to_currency(all_ticket_costs[i]):<14} {to_currency(all_surcharges[i]):<12} {to_currency(total_paid):<10} {to_currency(profit)}\n"
 
-    output += "Total Paid: " + to_currency(total_paid) + "\n"
+    output += "Total Paid: " + to_currency(total_collected) + "\n"
     output += "Total Profit: " + to_currency(total_profit)
     save_to_file(output)
 
