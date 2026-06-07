@@ -1,0 +1,12 @@
+=== Mini Movie Fundraiser Ticket Data (2026-06-07) ===
+--- Ticket Details ---
+
+Name  |  Ticket Price  |  Surcharge  |  Total  |  Profit 
+-------------------------------------------------------
+A           $7.50          $0.00        $7.50      $2.50
+B           $7.50          $0.38        $7.88      $2.50
+C           $10.50         $0.00        $10.50     $5.50
+D           $10.50         $0.53        $11.03     $5.50
+E           $6.50          $0.00        $6.50      $1.50
+Total Paid: $6.50
+Total Profit: $17.50
