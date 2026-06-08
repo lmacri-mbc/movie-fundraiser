@@ -15,6 +15,7 @@ PAYMENT_TYPES = ('cash', 'credit')
 BG_COLOUR = "orange"
 FG_COLOUR = "white"
 BORDER_COLOUR = "black"
+MY_FONT=("Verdana", 18, "bold")
 
 # Data lists
 all_names = []
@@ -30,10 +31,30 @@ def to_currency(x):
 def make_statement(statement, decoration):
     return f"{decoration * 3} {statement} {decoration * 3}"
 
+def create_frame(bg_color, border_color, border_width):
+    '''This function will create a frame to give a black border around a button.'''
+    new_frame = tk.Frame(root, bg=bg_color, highlightbackground=border_color, highlightthickness=border_width, bd=0)
+    return new_frame
+
 def save_to_file(output):
     file = open('movie_data.txt', 'w')
     file.write(output)
     file.close()
+
+def show_instructions():
+    instructions = '''
+    For each ticket holder enter…
+    -	Their name
+    -	Their age
+    -	The payment method (cash/credit)
+
+    The program will record the ticket sale and calculate the ticket cost (and the profit).
+
+    Once you have either sold all the tickets or entered the exit code (‘xxx’), the program will display the ticket sales info and write the data to a text file.
+
+    It will also choose one lucky ticket holder who wins the draw (their ticket is free).
+    '''
+    messagebox.showinfo("Information", instructions)
 
 
 def check_age(age):
@@ -66,6 +87,7 @@ def submit_ticket():
     name = name_entry.get().strip()
     pay_method = pay_method_box.get()
     age = age_entry.get().strip()
+    global tickets_sold
 
     if name == "":
         messagebox.showerror("Input Error", "Name cannot be blank.")
@@ -78,11 +100,15 @@ def submit_ticket():
 
     all_names.append(name)
     all_ticket_costs.append(ticket_price)
-
+    
     if pay_method == PAYMENT_TYPES[0]:
         all_surcharges.append(0)
     else:
         all_surcharges.append(ticket_price * CREDIT_SURCHARGE)
+
+    # Give system feedback
+    tickets_sold += 1
+    status_label.config(text=f"Tickets sold: {tickets_sold} / {MAX_TICKETS}")
 
     name_entry.delete(0, tk.END)
     age_entry.delete(0, tk.END)
@@ -126,13 +152,28 @@ def end_program():
 ###### Define TKinter GUI ######
 root = tk.Tk()
 root.title("Mini-Movie Fundraiser")
-root.geometry("320x275")
+root.geometry("350x320")
 root.configure(bg=BG_COLOUR)
 
-title_label = ttk.Label(root, text="Mini-Movie Fundraiser", borderwidth=1, relief="solid", font=("Verdana", 18, "bold"))
+###### Add app name label ######
+title_label = ttk.Label(root, text="Mini-Movie Fundraiser", borderwidth=1, relief="solid", font=MY_FONT)
 title_label.grid(row=0, column=0, columnspan=2, padx=10, pady=10)
 title_label.config(background=BG_COLOUR)
 title_label.config(foreground=FG_COLOUR)
+
+###### Add Help button ######
+help_frame = create_frame(BG_COLOUR, BORDER_COLOUR, 2)
+help_btn = tk.Button(
+    help_frame, 
+    command=show_instructions,
+    text="?", 
+    bg=BG_COLOUR,                # Background Color
+    fg=FG_COLOUR,                 # Text Color
+    bd=0,                       # Remove default button border
+)
+
+help_btn.grid(row=0, column=2)
+help_frame.grid(row=0, column=2, pady=10)
 
 ###### Add name label and entry box ######
 lbl_name = ttk.Label(root, text="Name:", borderwidth=2, relief="solid")
@@ -159,12 +200,6 @@ pay_method_box = ttk.Combobox(root, values=["cash", "credit"], state="readonly",
 pay_method_box.grid(row=3, column=1, pady=20)
 pay_method_box.current(0)
 
-###### Create Buttons######
-def create_frame(bg_color, border_color, border_width):
-    '''This function will create a frame to give a black border around a button.'''
-    new_frame = tk.Frame(root, bg=bg_color, highlightbackground=border_color, highlightthickness=border_width, bd=0)
-    return new_frame
-
 
 ###### Add Submit button ######
 submit_frame = create_frame(BG_COLOUR, BORDER_COLOUR, 2)
@@ -180,11 +215,10 @@ submit_btn = tk.Button(
 submit_btn.grid(row=9, column=0, pady=10)
 submit_frame.grid(row=9, column=0, pady=10)
 
-
 ###### Add Finish button ######
 finish_frame = create_frame(BG_COLOUR, BORDER_COLOUR, 2)
 finish_btn = tk.Button(
-    finish_frame, 
+    finish_frame,
     command=end_program,
     text="End Program", 
     bg=BG_COLOUR,                # Background Color
@@ -194,5 +228,8 @@ finish_btn = tk.Button(
 
 finish_btn.grid(row=9, column=1, pady=10)
 finish_frame.grid(row=9, column=1, pady=10)
+
+status_label = ttk.Label(root, text=f"Tickets sold: 0 / {MAX_TICKETS}", font=MY_FONT)
+status_label.grid(row=10, column=0, columnspan=2, pady=10)
 
 root.mainloop()
