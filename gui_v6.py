@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
 from datetime import date
+import random
 
 # -----------------------------
 # Housekeeping
@@ -55,6 +56,15 @@ def show_instructions():
     It will also choose one lucky ticket holder who wins the draw (their ticket is free).
     '''
     messagebox.showinfo("Information", instructions)
+
+
+def get_profit(ticket_price):
+    if ticket_price == 10.5:
+        return 5.5
+    elif ticket_price == 7.5:
+        return 2.5
+    else:
+        return 1.5
 
 
 def check_age(age):
@@ -113,6 +123,21 @@ def submit_ticket():
     name_entry.delete(0, tk.END)
     age_entry.delete(0, tk.END)
 
+
+def test_final():
+    names = ("A", "B", "C", "D", "E")
+    ages = ("12", "15", "16", "64", "65")
+    pay_method = ("cash", "credit", "cash", "credit", "cash")
+
+    for i in range(5):
+        name_entry.insert(0, names[i])
+        age_entry.insert(0, ages[i])
+        pay_method_box.set(pay_method[i])
+
+        submit_ticket()
+
+    end_program()
+
 def end_program():
     total_tix_sold = len(all_names)
     total_profit = 0
@@ -134,20 +159,34 @@ def end_program():
         total_paid = all_ticket_costs[i] + all_surcharges[i]
         total_collected += total_paid
 
-        if all_ticket_costs[i] == 10.5:
-            profit = 5.5
-        elif all_ticket_costs[i] == 7.5:
-            profit = 2.5
-        else:
-            profit = 1.5
-
+        profit = get_profit(all_ticket_costs[i])
         total_profit += profit
 
         output += f"{all_names[i]:<11} {to_currency(all_ticket_costs[i]):<14} {to_currency(all_surcharges[i]):<12} {to_currency(total_paid):<10} {to_currency(profit)}\n"
 
     output += "Total Paid: " + to_currency(total_collected) + "\n"
     output += "Total Profit: " + to_currency(total_profit)
+
+    ### Choose lucky winner ###
+    winner = random.choice(all_names)
+    winner_index = all_names.index(winner)
+
+    ticket_won = all_ticket_costs[winner_index]
+    profit_won = get_profit(ticket_won)
+
+    output += make_statement("Raffle Winner", "-")
+    output += f"\nThe lucky winner is {winner}. Their ticket worth ${ticket_won:.2f} is free!\n\n"
+
+    output += f"Adjusted Total Paid: ${total_collected - ticket_won:.2f}\n"
+    output += f"Adjusted Profit: ${total_profit - profit_won:.2f}\n\n"
+
+    if tickets_sold == MAX_TICKETS:
+        output += make_statement(f"You have sold all {MAX_TICKETS} tickets", "-")
+    else:
+        output += make_statement(f"You have sold {tickets_sold} / {MAX_TICKETS} tickets", "-")
+
     save_to_file(output)
+    root.destroy()
 
 ###### Define TKinter GUI ######
 root = tk.Tk()
@@ -219,7 +258,7 @@ submit_frame.grid(row=9, column=0, pady=10)
 finish_frame = create_frame(BG_COLOUR, BORDER_COLOUR, 2)
 finish_btn = tk.Button(
     finish_frame,
-    command=end_program,
+    command=test_final, # end_program,
     text="End Program", 
     bg=BG_COLOUR,                # Background Color
     fg=FG_COLOUR,                 # Text Color
