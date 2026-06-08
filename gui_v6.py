@@ -7,7 +7,7 @@ import random
 # Housekeeping
 # Program constants
 # -----------------------------
-MAX_TICKETS = 5
+MAX_TICKETS = 150
 CHILD_PRICE = 7.50
 ADULT_PRICE = 10.50
 SENIOR_PRICE = 6.50
