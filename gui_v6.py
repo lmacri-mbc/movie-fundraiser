@@ -25,7 +25,7 @@ all_surcharges = []
 
 tickets_sold = 0
 
-### Helper Functions ###
+#--- Helper Functions ----
 def to_currency(x):
     return "${:.2f}".format(x)
 
@@ -43,7 +43,7 @@ def save_to_file(output):
     file.close()
 
 def show_instructions():
-    instructions = '''
+    instructions = """
     For each ticket holder enter…
     -	Their name
     -	Their age
@@ -54,7 +54,7 @@ def show_instructions():
     Once you have either sold all the tickets or entered the exit code (‘xxx’), the program will display the ticket sales info and write the data to a text file.
 
     It will also choose one lucky ticket holder who wins the draw (their ticket is free).
-    '''
+    """
     messagebox.showinfo("Information", instructions)
 
 

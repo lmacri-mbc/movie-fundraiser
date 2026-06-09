@@ -4,15 +4,15 @@
 Name  |  Ticket Price  |  Surcharge  |  Total  |  Profit 
 -------------------------------------------------------
 A           $7.50          $0.00        $7.50      $2.50
-B           $7.50          $0.38        $7.88      $2.50
-C           $10.50         $0.00        $10.50     $5.50
-D           $10.50         $0.53        $11.03     $5.50
-E           $6.50          $0.00        $6.50      $1.50
-Total Paid: $43.40
-Total Profit: $17.50--- Raffle Winner ---
-The lucky winner is E. Their ticket worth $6.50 is free!
+B           $10.50         $0.53        $11.03     $5.50
+dfg         $10.50         $0.00        $10.50     $5.50
+sdfg        $6.50          $0.00        $6.50      $1.50
+sdfg        $10.50         $0.53        $11.03     $5.50
+Total Paid: $46.55
+Total Profit: $20.50--- Raffle Winner ---
+The lucky winner is A. Their ticket worth $7.50 is free!
 
-Adjusted Total Paid: $36.90
-Adjusted Profit: $16.00
+Adjusted Total Paid: $39.05
+Adjusted Profit: $18.00
 
---- You have sold all 5 tickets ---
+--- You have sold 5 / 150 tickets ---
