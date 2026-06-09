@@ -96,8 +96,8 @@ def check_age(age):
     try:  # Test age is an integer.
         new_age = int(age)
     except ValueError:
-        msg = ("Please enter an integer "
-               "(i.e. a number which doesn't have a decimal).")
+        msg = "Please enter an integer " \
+              "(i.e. a number which doesn't have a decimal)."
         messagebox.showerror("Input Error", msg)
         return -1
 
